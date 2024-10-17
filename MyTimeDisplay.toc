@@ -1,0 +1,6 @@
+## Interface: 11403
+## Title: MyTimeDisplay
+## Notes: Frame showing local and server time, current day of the week, and day number.
+## Author: Broccoli
+## Version: 1.0
+MyTimeDisplay.lua
