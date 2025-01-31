@@ -2,5 +2,6 @@
 ## Title: MyTimeDisplay
 ## Notes: Frame showing local and server time, current day of the week, and day number.
 ## Author: Broccoli
-## Version: 1.0
+## Version: 1.1
+## SavedVariables: MyTimeDisplayData
 MyTimeDisplay.lua
