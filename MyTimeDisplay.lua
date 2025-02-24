@@ -130,9 +130,25 @@ local closeButton = CreateFrame("Button", nil, TimeDisplaySettingsFrame)
 closeButton:SetSize(24, 24)
 closeButton:SetPoint("TOPRIGHT", TimeDisplaySettingsFrame, "TOPRIGHT", -5, -5)
 closeButton:SetNormalTexture("Interface\\AddOns\\MyTimeDisplay\\close.png")
-closeButton:SetHighlightTexture("Interface\\AddOns\\MyTimeDisplay\\close.png")
-closeButton:SetScript("OnClick", function()
-    TimeDisplaySettingsFrame:Hide()
+
+closeButton:EnableMouse(true)
+closeButton:SetScript("OnEnter", function(self)
+    self:GetNormalTexture():SetVertexColor(1, 0, 0) -- Red color on highlight
+end)
+closeButton:SetScript("OnLeave", function(self)
+    self:GetNormalTexture():SetVertexColor(1, 1, 1) -- Reset color
+end)
+closeButton:SetScript("OnMouseUp", function(self, button)
+    if button == "LeftButton" then
+        self:GetNormalTexture():SetVertexColor(1, 0, 0) -- Red color when pressed
+        TimeDisplaySettingsFrame:Hide()
+    end
+end)
+
+TimeDisplaySettingsFrame:SetScript("OnMouseUp", function(self, button)
+    if button == "RightButton" then
+        self:Hide()
+    end
 end)
 
 -- Function to create a checkbox
@@ -262,6 +278,8 @@ local function SaveSettings()
     for i = 1, 5 do
         MyTimeDisplayData.checkboxes[i] = checkboxes[i]:GetChecked()
     end
+    -- Save the backdrop state
+    MyTimeDisplayData.showBackdrop = checkboxes[5]:GetChecked()
 end
 
 -- Create save button for the settings frame
@@ -286,6 +304,8 @@ local function LoadCheckboxStates()
     end
     opacitySlider:SetValue(MyTimeDisplayData.sliders.frameOpacity)
     frame:SetBackdropColor(0, 0, 0, MyTimeDisplayData.sliders.frameOpacity / 100)
+    -- Load the backdrop state
+    frame:SetBackdropBorderColor(0, 0, 0, MyTimeDisplayData.showBackdrop and 1 or 0)
 end
 
 -- Event handler to load saved settings
@@ -326,6 +346,9 @@ end)
 
 -- Initialize settings
 InitializeSettings()
+
+-- Load the saved settings
+LoadCheckboxStates()
 
 -- Set a repeating timer to update the time every second
 frame:SetScript("OnUpdate", function(self, elapsed)
