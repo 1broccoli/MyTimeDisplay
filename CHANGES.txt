@@ -1,3 +1,24 @@
-Author: Broccoli
-Date:    Feb, 2, 2025 20:00:00
-Fixed boarder state with checkbox - checked or unchecked.
+lightweight tag b07237192106aa896de689f15a3a3140bbf87128 MyDisplayTime-1.2
+Author:	GitHub <noreply@github.com>
+Date:	Sun Feb 23 22:06:41 2025 -0700
+
+commit b07237192106aa896de689f15a3a3140bbf87128
+Author: Broccoli <138363916+1broccoli@users.noreply.github.com>
+Date:   Sun Feb 23 22:06:41 2025 -0700
+
+    Add files via upload
+    
+    Author: Broccoli
+    Date:    Feb, 2, 2025 20:00:00
+    Fixed boarder state with checkbox - checked or unchecked.
+
+
+commit 20260118-position-persist
+Author: Broccoli <138363916+1broccoli@users.noreply.github.com>
+Date:   Mon Jan 18 00:00:00 2026 -0700
+
+    Persist frame position across sessions
+    - Save frame coordinates on drag stop
+    - Restore saved position on addon load
+    - Prevent off-screen placement by clamping to screen
+

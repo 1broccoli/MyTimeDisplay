@@ -79,6 +79,7 @@ end
 local frame = CreateFrame("Frame", "MyTimeDisplayFrame", UIParent, "BackdropTemplate")
 frame:SetSize(150, 60)  -- Frame size (width, height)
 frame:SetPoint("CENTER") -- Default position
+frame:SetClampedToScreen(true)
 frame:SetBackdrop({
     bgFile = "Interface/Tooltips/UI-Tooltip-Background",
     edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
@@ -93,7 +94,14 @@ frame:EnableMouse(true)
 frame:SetMovable(true)
 frame:RegisterForDrag("LeftButton")
 frame:SetScript("OnDragStart", function(self) self:StartMoving() end)
-frame:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
+frame:SetScript("OnDragStop", function(self)
+    self:StopMovingOrSizing()
+    local point, _, relativePoint, xOfs, yOfs = self:GetPoint()
+    MyTimeDisplayData.position.point = point
+    MyTimeDisplayData.position.relativePoint = relativePoint
+    MyTimeDisplayData.position.xOfs = xOfs or 0
+    MyTimeDisplayData.position.yOfs = yOfs or 0
+end)
 
 -- Font string to display the information
 local timeText = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
@@ -313,6 +321,12 @@ local function OnEvent(self, event, arg1)
     if event == "ADDON_LOADED" and arg1 == "MyTimeDisplay" then
         InitializeSettings()  -- Initialize settings only once
         LoadCheckboxStates()  -- Load the saved checkbox states
+        -- Restore frame position
+        if MyTimeDisplayData and MyTimeDisplayData.position then
+            local pos = MyTimeDisplayData.position
+            self:ClearAllPoints()
+            self:SetPoint(pos.point or "CENTER", UIParent, pos.relativePoint or "CENTER", pos.xOfs or 0, pos.yOfs or 0)
+        end
         UpdateTime()
     elseif event == "PLAYER_LOGOUT" then
         SaveSettings()  -- Save current settings
