@@ -1,24 +1,43 @@
-lightweight tag b07237192106aa896de689f15a3a3140bbf87128 MyDisplayTime-1.2
-Author:	GitHub <noreply@github.com>
-Date:	Sun Feb 23 22:06:41 2025 -0700
+Version 2.0 – 2026-01-28
+- Reorganized configuration into tabbed categories (Display, Appearance, Layout, Backdrop, Minimap, Advanced, Profiles)
+- Added configurable line spacing for vertical and horizontal layouts (0–100), with context-aware disabling
+- Introduced minimap button (LibDataBroker-1.1 + LibDBIcon-1.0)
+    - Left-click: Open settings
+    - Right-click: Lock/Unlock the frame
+- Added Lock Frame toggle in config; lock state persists and prevents dragging
+- Profiles tab enabled via AceDBOptions; profile switching supported
+- Backdrop and font settings preserved; improved immediate-apply behavior
+- SavedVariables extended to include spacing, lock state, and minimap visibility
+- Bumped version to 2.0 across all .toc files; loaded LDB/DBIcon libraries
+ - Library cleanup: Pruned unused Ace libs (Bucket/Comm/Hook/Locale/Serializer/Tab/Timer, SharedMediaWidgets) from Libs (kept only those referenced in TOC)
 
-commit b07237192106aa896de689f15a3a3140bbf87128
-Author: Broccoli <138363916+1broccoli@users.noreply.github.com>
-Date:   Sun Feb 23 22:06:41 2025 -0700
+Comparison with old/MyTimeDisplay-v1.4
+- Framework: New uses AceAddon/AceConfig/AceDB + LibSharedMedia; old is a single file without Ace.
+- Display structure: New separates `localTime`, `serverTime`, `date` into distinct font strings for flexible layouts; old uses one font string with newline formatting.
+- Layout: New supports vertical and horizontal layouts with alignment options; old is fixed vertical stack via text newlines.
+- Spacing/Padding: New adds configurable `spacing` and `padding` (SavedVariables) applied to layout and frame sizing; old uses fixed positions and sizes.
+- Minimap integration: New adds LDB/DBIcon launcher with tooltip showing instructions and live lock status; old has no minimap button.
+- Locking: New adds a lock/unlock state (persisted) that prevents dragging; old frame is always movable.
+- Tooltips: New minimap tooltip refreshes in place while hovering after right-click; old has no such tooltip.
+- Configuration: New tabbed config UI with sliders/toggles and Profiles; old has no configuration UI.
+- SavedVariables: New initializes and persists `spacing`, `padding`, `lockFrame`, `minimap.hide`, fonts/backdrop; old has no SavedVariables.
 
-    Add files via upload
-    
-    Author: Broccoli
-    Date:    Feb, 2, 2025 20:00:00
-    Fixed boarder state with checkbox - checked or unchecked.
+Version 1.4 – 2026-01-28
+- Layout switching: Toggle between vertical (stacked) and horizontal (side-by-side) display modes.
+- Text alignment options: LEFT, CENTER, or RIGHT alignment with proper anchor positioning.
+- Time label abbreviation: Use 'L' and 'S' instead of 'Local' and 'Server' labels.
+- Month color coding: Display month abbreviation in gemstone colors based on birth month.
+- Day name abbreviation: Toggle between abbreviated (Wed) and full (Wednesday) day names.
+- Font and outline customization: Choose from LibSharedMedia fonts with outline options.
+- Single text color customization: Apply custom color overlay to all displayed text.
+- Opacity and scale sliders: Control frame transparency and size independently.
+- Checkbox controls: Easy toggles for display options (local time, server time, date, 12-hour format, border, month colors, day abbreviation, custom text color).
+- Configuration dialog: Full ACE3 Config interface with grouped options and sliders.
+- Per-character profiles: Settings saved separately for each character.
 
 
-commit 20260118-position-persist
-Author: Broccoli <138363916+1broccoli@users.noreply.github.com>
-Date:   Mon Jan 18 00:00:00 2026 -0700
-
-    Persist frame position across sessions
-    - Save frame coordinates on drag stop
-    - Restore saved position on addon load
-    - Prevent off-screen placement by clamping to screen
+Version 1.3 – 2026-01-18
+- Persist main frame position across sessions (saved on drag stop, restored on load).
+- Clamp frame to screen to avoid off-screen placement.
+- Update addon version in TOC to 1.3.
 
